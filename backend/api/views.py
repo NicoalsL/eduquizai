@@ -1,9 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
+from .serializers import QuizSerializer
 
-
-@api_view(["GET"])
-def hello(request):
-    return Response({
-        "message": "Bienvenue sur EduQuizAI !"
-    })
+@api_view(["POST"])
+def create_quiz(request):
+    serializer = QuizSerializer(data=request.data)
+    
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

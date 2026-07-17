@@ -1,17 +1,27 @@
-import useHello from './hooks/useHello'
+import useCreateQuiz from "./hooks/useCreateQuiz";
+
 
 function App() {
 
-  const { data, isPending, isError, error } = useHello();
-  if (isPending) {
-    return <p>Chargement...</p>
+  const { mutate, isPending, isSuccess, isError, error, data } = useCreateQuiz();
+
+  function handleCreateQuiz() {
+    mutate({
+      title: "Sample Quiz",
+      description: "This is a sample quiz."
+    })
   }
 
-  if (isError) {
-    return <p role="alert">Erreur : {error.message}</p>
-  }
+  return (
+    <>
+      <button onClick={handleCreateQuiz} disabled={isPending}>
+        {isPending ? "Creating..." : "Create Quiz"}
+      </button>
 
-  return <h1>{data.message}</h1>
+      {isSuccess && <div>Quiz created successfully! ID: {data?.id}</div>}
+      {isError && <div>Error creating quiz: {error?.message}</div>}
+    </>
+  )
+
 }
-
 export default App

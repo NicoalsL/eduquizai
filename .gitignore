@@ -11,12 +11,29 @@ frontend/.env.development.local
 frontend/.env.production.local
 
 # =========================
-# Backend (Laravel)
+# Backend (Django)
 # =========================
-backend/vendor/
 backend/.env
-backend/storage/logs/
-backend/bootstrap/cache/
+backend/.venv/
+backend/venv/
+
+backend/__pycache__/
+backend/**/*.py[cod]
+backend/**/*.pyo
+
+backend/api/__pycache__/
+backend/api/migrations/__pycache__/
+
+# Si tu utilises SQLite uniquement en développement,
+# tu peux choisir de l'ignorer.
+# backend/db.sqlite3
+
+# =========================
+# Python
+# =========================
+*.py[cod]
+*.pyo
+__pycache__/
 
 # =========================
 # Logs
@@ -25,3 +42,13 @@ backend/bootstrap/cache/
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# macOS
+# =========================
+.DS_Store
